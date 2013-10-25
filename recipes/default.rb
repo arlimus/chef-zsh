@@ -22,24 +22,20 @@
 # * zshrc
 # * per-user configuration, depending on databags
 
-def get_userinfo c
-  [
-    c['id'],
-    c['gid'] || 'users',
-    c['home'] || File.join('home',uid)
-  ]
-end
-
 # install zsh
 package "zsh"
 
-# add configuration for all users
-search("users","shell:*zsh").each do |c|
+# get all active users
+active_users.
+  # find all users whose shell is zsh
+  find_all{|u| u['shell'] =~ /zsh$/ }.
+  each do |c|
+
   Chef::Log.info "gitconfig: setting shell to zsh foruser #{c['id']}"
   
   # presets
-  uid, gid, home = get_userinfo c
-  omz_home = File.join home, '.oh-my-zsh'
+  u = get_userinfo c
+  omz_home = File.join u['home'], '.oh-my-zsh'
   omz_themes = File.join omz_home, 'themes'
   omz_plugins = File.join omz_home, 'plugins'
   enable_omz = (
@@ -59,8 +55,8 @@ search("users","shell:*zsh").each do |c|
     end
     # adjust the directory's permissions to allow user modifications
     directory omz_home do
-      owner uid
-      group gid
+      owner u[:uid]
+      group u[:gid]
     end
   end
 
@@ -78,8 +74,8 @@ search("users","shell:*zsh").each do |c|
     # create a folder for the plugin
     path = File.join omz_plugins, plugin
     directory path do
-      owner uid
-      group gid
+      owner u[:uid]
+      group u[:gid]
     end
     # download the plugin file
     remote_file File.join( path, File.basename(url) ) do
@@ -93,8 +89,8 @@ search("users","shell:*zsh").each do |c|
   template zshrc_home do
     source "zshrc.erb"
     mode 0644
-    owner uid
-    group gid
+    owner u[:uid]
+    group u[:gid]
     variables({
       :enable_omz => enable_omz,
       :theme => c['zsh_theme'] || 'robbyrussell',
