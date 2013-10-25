@@ -4,9 +4,14 @@ Configure zsh for your system and users. Uses [oh-my-zsh](https://github.com/rob
 
 ## Requirements
 
-None.
+* [fnichol/chef-user](https://github.com/fnichol/chef-user)
+
+You must create the user on the system before using this cookbook. User management and identification is done based on [fnichol/chef-user](https://github.com/fnichol/chef-user) and it is highly recommended.
 
 ## Attributes
+
+    # set a list of users you wish to modify
+    ['users']                  = [ ]
     
     # list of urls of extra themes to add
     ['oh-my-zsh']['themes']    = [ ]
@@ -18,18 +23,19 @@ None.
 
 ## Usage
 
-Just include `chef-zsh` in your node's `run_list`:
+Just include `chef-zsh` in your node's `run_list`. Configure your users in `users` attribute.
 
 ```json
 {
-  "name":"my_node",
+  "users": [ "test" ],
   "run_list": [
-    "recipe[chef-zsh]"
+    "recipe[user]",
+    "recipe[zsh]"
   ]
 }
 ```
 
-Add users to your `data_bags`. Example for `data_bags/users/test.json`:
+Add users to your `data_bags`. Example test user (`data_bags/users/test.json`):
 
 ```json
 {
@@ -48,6 +54,9 @@ A fully customized example:
 
 ```json
 {
+  "users": [
+    "test"
+  ],
   "oh-my-zsh": {
     "themes": [
       "https://raw.github.com/arlimus/zero.zsh/master/themes/zero.zsh-theme.base",
@@ -59,6 +68,7 @@ A fully customized example:
     }
   },
   "run_list": [
+    "recipe[user]",
     "recipe[zsh]"
   ]
 }
