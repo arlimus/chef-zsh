@@ -42,11 +42,12 @@ search("users","shell:zsh").each do |c|
   omz_home = File.join home, '.oh-my-zsh'
   omz_themes = File.join omz_home, 'themes'
   omz_plugins = File.join omz_home, 'plugins'
-  enable_omz = 
+  enable_omz = (
     not node['oh-my-zsh']['themes'].empty? or
     not node['oh-my-zsh']['plugins'].empty? or
     not c['zsh_theme'].nil? or
     not c['zsh_plugins'].nil?
+    )
 
   # set the shell for the user
   execute "chsh -s `which zsh` #{c['id']}"
