@@ -39,6 +39,9 @@ active_users.
   omz_themes = File.join omz_home, 'themes'
   omz_plugins = File.join omz_home, 'plugins'
   zshrc_home = File.join u[:home], '.zshrc'
+  # whether to enable omz
+  # only enable it if we set themes or plugins or if the user
+  # has a theme or plugins configured
   enable_omz = (
     not node['oh-my-zsh']['themes'].empty? or
     not node['oh-my-zsh']['plugins'].empty? or
