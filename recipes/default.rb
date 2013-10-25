@@ -38,6 +38,7 @@ active_users.
   omz_home = File.join u[:home], '.oh-my-zsh'
   omz_themes = File.join omz_home, 'themes'
   omz_plugins = File.join omz_home, 'plugins'
+  zshrc_home = File.join u[:home], '.zshrc'
   enable_omz = (
     not node['oh-my-zsh']['themes'].empty? or
     not node['oh-my-zsh']['plugins'].empty? or
@@ -85,7 +86,6 @@ active_users.
   end
 
   # set up the .zshrc
-  zshrc_home = File.join home, '.zshrc'
   template zshrc_home do
     source "zshrc.erb"
     mode 0644
