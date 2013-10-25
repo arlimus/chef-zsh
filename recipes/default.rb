@@ -34,7 +34,7 @@ end
 package "zsh"
 
 # add configuration for all users
-search("users","default_shell:/usr/bin/zsh").each do |c|
+search("users","shell:/usr/bin/zsh").each do |c|
   Chef::Log.info "gitconfig: setting shell to zsh foruser #{c['id']}"
   
   # presets
