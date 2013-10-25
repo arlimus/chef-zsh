@@ -59,7 +59,7 @@ A fully customized example:
     }
   },
   "run_list": [
-    "recipe[chef-zsh]"
+    "recipe[zsh]"
   ]
 }
 ```
