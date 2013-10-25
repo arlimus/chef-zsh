@@ -34,7 +34,7 @@ end
 package "zsh"
 
 # add configuration for all users
-search("users","shell:zsh").each do |c|
+search("users","default_shell:/usr/bin/zsh").each do |c|
   Chef::Log.info "gitconfig: setting shell to zsh foruser #{c['id']}"
   
   # presets
@@ -48,9 +48,6 @@ search("users","shell:zsh").each do |c|
     not c['zsh_theme'].nil? or
     not c['zsh_plugins'].nil?
     )
-
-  # set the shell for the user
-  execute "chsh -s `which zsh` #{c['id']}"
 
   # install oh-my-zsh if necessary
   if enable_omz

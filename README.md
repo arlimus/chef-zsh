@@ -34,13 +34,13 @@ Add users to your `data_bags`. Example for `data_bags/users/test.json`:
 ```json
 {
   // basic user config
-  "id"          : "test",
-  "gid"         : "users",
-  "home"        : "/home/test",
+  "id"            : "test",
+  "gid"           : "users",
+  "home"          : "/home/test",
   // zsh configuration
-  "shell"       : "zsh",
-  "zsh_theme"   : "zero-dark",
-  "zsh_plugins" : "git extract zero web-search",
+  "default_shell" : "/usr/bin/zsh",
+  "zsh_theme"     : "zero-dark",
+  "zsh_plugins"   : "git extract zero web-search",
 }
 ```
 
