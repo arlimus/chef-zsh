@@ -31,7 +31,7 @@ active_users.
   find_all{|u| u['shell'] =~ /zsh$/ }.
   each do |c|
 
-  Chef::Log.info "gitconfig: setting shell to zsh foruser #{c['id']}"
+  Chef::Log.info "zsh: setting shell to zsh for user #{c['id']}"
   
   # presets
   u = get_userinfo c
