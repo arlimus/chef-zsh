@@ -35,7 +35,7 @@ active_users.
   
   # presets
   u = get_userinfo c
-  omz_home = File.join u['home'], '.oh-my-zsh'
+  omz_home = File.join u[:home], '.oh-my-zsh'
   omz_themes = File.join omz_home, 'themes'
   omz_plugins = File.join omz_home, 'plugins'
   enable_omz = (
