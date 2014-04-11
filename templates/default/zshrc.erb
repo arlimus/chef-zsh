@@ -32,5 +32,10 @@ plugins=(<%= @plugins %>)
 source $ZSH/oh-my-zsh.sh
 <%- end -%>
 
+# Aliases
+<%- @aliases.each do |k,v| -%>
+alias <%= k %>=<%= v.inspect %>
+<%- end -%>
+
 # Customize to your needs...
 export PATH=$PATH:/sbin:/usr/sbin:/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/opt/chef/embedded/bin:/opt/chef/embedded/bin

@@ -97,7 +97,8 @@ active_users.
     variables({
       :enable_omz => enable_omz,
       :theme => c['zsh_theme'] || 'robbyrussell',
-      :plugins => c['zsh_plugins'] || ''
+      :plugins => c['zsh_plugins'] || '',
+      :aliases => c['zsh_aliases'] || {}
     })
   end
 end

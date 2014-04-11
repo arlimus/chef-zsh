@@ -47,6 +47,9 @@ Add users to your `data_bags`. Example test user (`data_bags/users/test.json`):
   "shell"       : "/usr/bin/zsh",
   "zsh_theme"   : "zero-dark",
   "zsh_plugins" : "git extract zero web-search",
+  "zsh_aliases" : {
+    "gll": "git log --color --all"
+  }
 }
 ```
 
