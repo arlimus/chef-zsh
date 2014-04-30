@@ -1,4 +1,4 @@
-name             'chef-zsh'
+name             'zsh'
 maintainer       'Dominik Richter'
 maintainer_email 'dominik.richter@googlemail.com'
 license          'Apache 2.0'
