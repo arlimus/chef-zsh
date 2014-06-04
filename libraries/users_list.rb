@@ -43,17 +43,29 @@ class Chef
         actions = Array(u['action']).map(&:to_sym)
         ( actions.include?(:remove) ) ? nil : u
       # remove all nil entries
-      end.compact
+      end + [
+        # if the root user is available, user it
+        data_bag_item(bag, "root")
+      ].compact
       
     end
 
     # returns an hash with all core fields filled in
     def get_userinfo( c )
-      {
-        uid:  c['username'] || c['id'],
-        gid:  c['gid'] || 'users',
-        home: c['home'] || File.join('home',uid)
-      }
+      uid = c['username'] || c['id']
+      if uid.to_s == "0" || uid == "root"
+        {
+          uid:  uid,
+          gid:  c['gid'] || 'root',
+          home: c['home'] || '/root'
+        }
+      else
+        {
+          uid:  uid,
+          gid:  c['gid'] || 'users',
+          home: c['home'] || File.join('home',uid)
+        }
+      end
     end
 
   end
