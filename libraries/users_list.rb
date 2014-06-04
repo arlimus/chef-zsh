@@ -43,7 +43,10 @@ class Chef
         actions = Array(u['action']).map(&:to_sym)
         ( actions.include?(:remove) ) ? nil : u
       # remove all nil entries
-      end.compact
+      end + [
+        # if the root user is available, user it
+        data_bag_item(bag, "root")
+      ].compact
       
     end
 
