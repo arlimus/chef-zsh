@@ -39,11 +39,10 @@ Add users to your `data_bags`. Example test user (`data_bags/users/test.json`):
 
 ```json
 {
-  // basic user config
   "id"          : "test",
   "gid"         : "users",
   "home"        : "/home/test",
-  // zsh configuration
+
   "shell"       : "/usr/bin/zsh",
   "zsh_theme"   : "zero-dark",
   "zsh_plugins" : "git extract zero web-search",
@@ -76,6 +75,35 @@ A fully customized example:
   ]
 }
 ```
+
+### Root user
+
+As for the root user, it's only slightly different. You create a `data_bags/users/root.json` as you would for every other user.
+
+```json
+{
+  "id"            : "root",
+
+  "shell"         : "/usr/bin/zsh",
+  "zsh_theme"     : "zero-dark",
+  "zsh_plugins"   : "git extract zero web-search",
+}
+```
+
+However, you **don't** add `root` to your `users` array in the attributes:
+
+```json
+{
+  "users": [ "alice", "bob", "unkle" ],
+  "run_list": [
+    "recipe[user]",
+    "recipe[zsh]"
+  ]
+}
+```
+
+The `root` user is the one exception, where the json in your `data_bags` is getting interpreted as soon as it is created, without the user being in the `users` list. _(This is necessary to get along with the `chef-user` cookbook, while still being able to configure root.)_
+
 
 ## Contributing
 
