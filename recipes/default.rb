@@ -26,7 +26,7 @@
 package "zsh"
 
 # get all active users
-active_users.
+active_users.compact.
   # find all users whose shell is zsh
   find_all{|u| u['shell'] =~ /zsh$/ }.
   each do |c|
