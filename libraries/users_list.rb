@@ -35,19 +35,20 @@ class Chef
         user_array = user_array.send(:[], hash_key)
       end
 
-      # only manage the subset of users defined
-      Array(user_array).map do |i|
-        u = data_bag_item(bag, i.gsub(/[.]/, '-'))
-      # ----------
-        # filter out users who are being removed
-        actions = Array(u['action']).map(&:to_sym)
-        ( actions.include?(:remove) ) ? nil : u
-      # remove all nil entries
-      end + [
+      users =
+        # only manage the subset of users defined
+        Array(user_array).map do |i|
+          u = data_bag_item(bag, i.gsub(/[.]/, '-'))
+          # ----------
+          # filter out users who are being removed
+          actions = Array(u['action']).map(&:to_sym)
+          ( actions.include?(:remove) ) ? nil : u
+        # remove all nil entries
+        end +
         # if the root user is available, user it
-        data_bag_item(bag, "root")
-      ].compact
+        search(bag, "id:root")
       
+      users.compact
     end
 
     # returns an hash with all core fields filled in
