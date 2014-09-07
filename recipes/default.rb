@@ -54,7 +54,7 @@ active_users.compact.
     # we need to get oh-my-zsh from git
     package "git-core"
     # clone the git repo
-    execute "git clone https://github.com/robbyrussell/oh-my-zsh.git #{omz_home}" do
+    execute "git clone https://github.com/robbyrussell/oh-my-zsh.git #{omz_home} && chown -R #{u[:uid]}:#{u[:gid]} #{omz_home}" do
       not_if { ::File.exists? omz_home}
     end
     # adjust the directory's permissions to allow user modifications
