@@ -103,4 +103,17 @@ active_users.compact.
       :aliases => c['zsh_aliases'] || {}
     })
   end
+
+  # one more point: chef-user doesn't manage root
+  # and so the root user won't get his shell set.
+  #
+  # Work around this issue to behave to user
+  # expectations.
+  if u[:uid] == 'root'
+    user 'root' do
+      action :modify
+      shell c['shell']
+    end
+  end
+
 end
