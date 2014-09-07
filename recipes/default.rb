@@ -69,6 +69,8 @@ active_users.compact.
     # download the theme file
     remote_file File.join( omz_themes, File.basename(url) ) do
       source url
+      owner u[:uid]
+      group u[:gid]
       mode 00644
     end
   end
